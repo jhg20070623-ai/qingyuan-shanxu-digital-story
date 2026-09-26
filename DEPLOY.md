@@ -8,8 +8,8 @@
 
 ## 二维码文件
 
-- `qingyuan-shanxu-qr-1200.png`：1200 × 1200 像素，二维码编码生产网页地址。
-- `qingyuan-shanxu-qr-labelled.png`：含标题与地址的版面预览图。
+- `qingyuan_shanxu_qr_final_1200.png`：1200 × 1200 像素，黑白高对比正式二维码，编码生产网页地址。
+- `qingyuan_shanxu_qr_final_labelled.png`：二维码下方含“扫码走进清原山序”及主题说明的版面图。
 
 印刷前请用手机扫描 1200 × 1200 版本并确认跳转到生产网页；网页地址变更时重新生成二维码。
 

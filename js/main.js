@@ -1,6 +1,4 @@
 (() => {
-  const config = window.QINGYUAN_CONFIG || {};
-
   const menuButton = document.querySelector(".menu-toggle");
   const mobileNav = document.querySelector("#mobile-nav");
   const setMenuOpen = (open) => {
@@ -9,108 +7,54 @@
     menuButton.setAttribute("aria-label", open ? "关闭菜单" : "打开菜单");
     mobileNav.hidden = !open;
   };
-  menuButton?.addEventListener("click", () => setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true"));
-  mobileNav?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setMenuOpen(false)));
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setMenuOpen(false);
+
+  menuButton?.addEventListener("click", () => {
+    setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true");
+  });
+  mobileNav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setMenuOpen(false));
   });
 
-  const sachets = [
-    { theme: "黄精根茎组", description: "以黄精根茎形态作为画面中心，呈现本系列的核心视觉元素。" },
-    { theme: "黄精根茎组", description: "延续根茎主题，以同一组图形语言形成礼盒内的系列节奏。" },
-    { theme: "山林组", description: "以山脉与森林层次构成画面，让地域意象在独立包装中延展。" },
-    { theme: "山林组", description: "延续山林主题，在同一视觉系统中呈现另一款系列包装。" },
-    { theme: "植物组", description: "以黄精植物轮廓为主要图形，呈现植物形态的版画表达。" },
-    { theme: "植物组", description: "延续植物主题，与前五袋共同构成完整的六袋视觉序列。" }
-  ];
-  const cards = [...document.querySelectorAll(".sachet-card")];
-  const track = document.querySelector(".sachet-track");
-  const detailIndex = document.querySelector(".sachet-detail-index");
-  const detailHeading = document.querySelector(".sachet-detail h3");
-  const detailCopy = document.querySelector(".sachet-detail div p");
-  const selectSachet = (index, scroll = false) => {
-    const safeIndex = (index + cards.length) % cards.length;
-    cards.forEach((card, cardIndex) => {
-      const selected = cardIndex === safeIndex;
-      card.classList.toggle("is-selected", selected);
-      card.setAttribute("aria-pressed", String(selected));
-    });
-    if (detailIndex) detailIndex.innerHTML = `${String(safeIndex + 1).padStart(2, "0")} <span>/ 06</span>`;
-    if (detailHeading) detailHeading.textContent = sachets[safeIndex].theme;
-    if (detailCopy) detailCopy.textContent = sachets[safeIndex].description;
-    if (scroll && cards[safeIndex]) cards[safeIndex].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  const viewer = document.querySelector(".board-viewer");
+  const viewerImage = document.querySelector(".viewer-image");
+  const viewerTitle = document.querySelector("#viewer-title");
+  const zoomOutput = document.querySelector(".zoom-level");
+  let zoom = 1;
+
+  const applyZoom = () => {
+    if (!viewerImage?.naturalWidth) return;
+    const width = Math.round(viewerImage.naturalWidth * zoom);
+    viewerImage.style.width = `${width}px`;
+    if (zoomOutput) zoomOutput.value = `${Math.round(zoom * 100)}%`;
   };
-  cards.forEach((card, index) => {
-    card.addEventListener("click", () => selectSachet(index));
-    card.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowRight") { event.preventDefault(); selectSachet(index + 1, true); cards[(index + 1) % cards.length]?.focus(); }
-      if (event.key === "ArrowLeft") { event.preventDefault(); selectSachet(index - 1, true); cards[(index - 1 + cards.length) % cards.length]?.focus(); }
-    });
-  });
-  document.querySelectorAll(".carousel-arrow").forEach((button) => {
+
+  document.querySelectorAll("[data-board-open]").forEach((button) => {
     button.addEventListener("click", () => {
-      const activeIndex = Math.max(0, cards.findIndex((card) => card.classList.contains("is-selected")));
-      const direction = button.dataset.direction === "next" ? 1 : -1;
-      selectSachet(activeIndex + direction, true);
+      if (!viewer || !viewerImage) return;
+      const source = button.dataset.boardSrc;
+      const image = button.querySelector("img");
+      viewerImage.alt = image?.alt || button.dataset.boardOpen || "设计版面原图";
+      viewerTitle.textContent = button.dataset.boardOpen || "设计版面原图";
+      zoom = 1;
+      viewerImage.style.width = "1491px";
+      viewerImage.src = source;
+      if (viewerImage.complete) applyZoom();
+      else viewerImage.addEventListener("load", applyZoom, { once: true });
+      viewer.querySelector(".viewer-canvas")?.scrollTo(0, 0);
+      viewer.showModal();
     });
   });
 
-  const boxTabs = [...document.querySelectorAll(".box-tab")];
-  const boxImages = [...document.querySelectorAll(".box-image")];
-  const boxCaption = document.querySelector(".box-caption");
-  const boxCaptions = {
-    closed: "闭合礼盒 · 书型结构设计效果",
-    open: "开启礼盒 · 六袋独立包装与内托设计效果"
-  };
-  boxTabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      const view = tab.dataset.view;
-      boxTabs.forEach((item) => {
-        const active = item === tab;
-        item.classList.toggle("is-active", active);
-        item.setAttribute("aria-pressed", String(active));
-      });
-      boxImages.forEach((image) => {
-        const active = image.dataset.boxImage === view;
-        image.hidden = !active;
-        image.classList.toggle("is-visible", active);
-      });
-      if (boxCaption) boxCaption.textContent = boxCaptions[view];
+  viewer?.querySelectorAll("[data-zoom]").forEach((button) => {
+    button.addEventListener("click", () => {
+      zoom = Math.max(.75, Math.min(2.5, zoom + (button.dataset.zoom === "in" ? .25 : -.25)));
+      applyZoom();
     });
   });
 
-  const brandLinks = {
-    brand: config.brandUrl || "",
-    shop: config.shopUrl || ""
-  };
-  document.querySelectorAll("[data-brand-link]").forEach((link) => {
-    const url = brandLinks[link.dataset.brandLink];
-    if (url) {
-      link.href = url;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.removeAttribute("aria-disabled");
-    } else {
-      link.href = "#brand";
-      link.setAttribute("aria-disabled", "true");
-    }
+  viewer?.querySelector("[data-viewer-close]")?.addEventListener("click", () => viewer.close());
+  viewer?.addEventListener("click", (event) => {
+    if (event.target === viewer) viewer.close();
   });
-
-  const sections = document.querySelectorAll(".section-heading, .origin-content, .plant-layout, .timeline, .sachet-detail, .box-stage, .green-layout, .digital-flow, .brand-panel");
-  if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const observer = new IntersectionObserver((entries, activeObserver) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-in-view");
-          activeObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: "0px 0px -20px 0px" });
-    sections.forEach((element) => {
-      element.classList.add("reveal");
-      observer.observe(element);
-    });
-  }
-
-  document.title = config.projectTitle || document.title;
+  document.title = window.QINGYUAN_CONFIG?.projectTitle || document.title;
 })();
