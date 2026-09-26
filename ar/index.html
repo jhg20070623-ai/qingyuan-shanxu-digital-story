@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#073f35" />
+    <meta name="description" content="AR走进清原山林。识别清原山序黄精果礼盒正面，观看山林意象、黄精生长故事与企业影像资料。" />
+    <title>AR走进清原山林｜清原山序</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="ar.css" />
+    <script src="./vendor/aframe.min.js"></script>
+    <script src="./vendor/mindar-image-aframe.prod.js"></script>
+    <script src="../js/video-story.js" defer></script>
+    <script src="ar.js" defer></script>
+  </head>
+  <body class="ar-page">
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <header class="site-header ar-header">
+      <div class="header-inner">
+        <a class="brand-lockup" href="../" aria-label="清原山序，返回数字故事首页">
+          <span class="brand-seal" aria-hidden="true">裕恒源</span>
+          <span class="brand-title">清原山序<small>黄精果礼盒 · 数字故事</small></span>
+        </a>
+        <a class="ar-back-link" href="../#smart-experience">返回数字故事 <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+
+    <main id="main" class="ar-main">
+      <section class="ar-scanner" data-ar-scanner aria-labelledby="ar-title">
+        <div class="ar-heading">
+          <p class="eyebrow"><span class="red-mark" aria-hidden="true"></span>图像识别 · 2.5D 山林互动</p>
+          <h1 id="ar-title">AR走进清原山林</h1>
+          <p>开启相机，将镜头对准<strong>清原山序黄精果礼盒正面主视觉</strong>。</p>
+        </div>
+
+        <div class="ar-stage" data-ar-stage>
+          <a-scene
+            id="ar-scene"
+            embedded
+            mindar-image="imageTargetSrc: ./target/giftbox-front.mind; autoStart: false; uiLoading: no; uiScanning: no; uiError: no;"
+            vr-mode-ui="enabled: false"
+            device-orientation-permission-ui="enabled: false"
+            renderer="colorManagement: true; physicallyCorrectLights: true; alpha: true; antialias: true"
+          >
+            <a-assets>
+              <img id="layer-mountain" src="./assets/mountain-outline.svg" crossorigin="anonymous" />
+              <img id="layer-forest-back" src="./assets/forest-layer-back.svg" crossorigin="anonymous" />
+              <img id="layer-forest-front" src="./assets/forest-layer-front.svg" crossorigin="anonymous" />
+              <img id="layer-huangjing" src="./assets/huangjing-plant.svg" crossorigin="anonymous" />
+              <img id="layer-inscription" src="./assets/inscription.svg" crossorigin="anonymous" />
+              <video id="ar-growth-video" src="../edited_videos/huangjing_growth_ar_loop.mp4" playsinline muted loop preload="none"></video>
+              <video id="ar-harvest-video" src="../edited_videos/huangjing_harvest_ar_loop.mp4" playsinline muted loop preload="none"></video>
+            </a-assets>
+            <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+            <a-entity id="giftbox-target" mindar-image-target="targetIndex: 0">
+              <a-plane
+                src="#layer-mountain" width=".94" height=".413" position="0 .171 .025"
+                material="transparent: true; opacity: .9; side: double"
+                animation__rise="property: position; from: 0 .12 .025; to: 0 .171 .025; dur: 1500; easing: easeOutCubic; startEvents: targetFound"
+              ></a-plane>
+              <a-plane
+                src="#layer-forest-back" width=".97" height=".426" position="0 -.105 .04"
+                material="transparent: true; opacity: .66; side: double"
+                animation__depth="property: position; from: -.035 -.105 .04; to: 0 -.105 .04; dur: 3600; direction: alternate; loop: true; easing: easeInOutSine; startEvents: targetFound"
+              ></a-plane>
+              <a-plane
+                src="#layer-forest-front" width=".97" height=".426" position="0 -.148 .055"
+                material="transparent: true; opacity: .9; side: double"
+                animation__drift="property: position; from: .018 -.148 .055; to: -.018 -.148 .055; dur: 5200; direction: alternate; loop: true; easing: easeInOutSine; startEvents: targetFound"
+              ></a-plane>
+              <a-plane
+                src="#layer-huangjing" width=".245" height=".408" position=".322 -.139 .075"
+                material="transparent: true; opacity: .94; side: double"
+                animation__grow="property: scale; from: .12 .12 1; to: 1 1 1; dur: 1900; easing: easeOutBack; startEvents: targetFound"
+              ></a-plane>
+              <a-plane
+                src="#layer-inscription" width=".67" height=".125" position="-.075 .293 .09"
+                material="transparent: true; opacity: .98; side: double"
+                animation__appear="property: material.opacity; from: 0; to: .98; dur: 1100; easing: easeOutQuad; startEvents: targetFound"
+              ></a-plane>
+              <a-video id="ar-video-plane" src="#ar-growth-video" width=".82" height=".49" position="0 -.025 .115" visible="false" material="side: double"></a-video>
+              <a-video id="ar-harvest-video-plane" src="#ar-harvest-video" width=".82" height=".49" position="0 -.025 .116" visible="false" material="side: double"></a-video>
+            </a-entity>
+          </a-scene>
+
+          <div class="ar-start-panel" data-ar-start-panel>
+            <span class="ar-start-panel__seal" aria-hidden="true">山序</span>
+            <p class="ar-start-panel__eyebrow">清原山序 · 礼盒图像识别</p>
+            <strong>让礼盒正面的山林，<br />在镜头中舒展出来。</strong>
+            <button class="ar-primary-button" type="button" data-ar-start>开启相机，开始识别 <span aria-hidden="true">↗</span></button>
+            <span class="ar-start-panel__hint">仅在本页使用相机画面进行图像识别，不会上传影像。</span>
+          </div>
+
+          <div class="ar-scan-overlay" data-ar-scan-overlay hidden>
+            <div class="scan-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <p data-ar-status aria-live="polite">正在开启相机…</p>
+            <span>请缓慢移动镜头，让礼盒正面完整进入取景框</span>
+          </div>
+
+          <div class="ar-found-panel" data-ar-found-panel hidden>
+            <div class="ar-found-panel__copy">
+              <span class="ar-found-panel__dot" aria-hidden="true"></span>
+              <strong>山林已在礼盒上展开</strong>
+              <small>辽宁 · 抚顺 · 清原</small>
+            </div>
+            <div class="ar-found-panel__actions">
+              <button type="button" class="ar-action-button" data-ar-watch>观看黄精生长 <span aria-hidden="true">▶</span></button>
+              <button type="button" class="ar-action-button" data-ar-watch-harvest>观看山林采收 <span aria-hidden="true">▶</span></button>
+              <button type="button" class="ar-action-button ar-action-button--light" data-ar-explore>探索清原山林 <span aria-hidden="true">↗</span></button>
+              <button type="button" class="ar-action-button ar-action-button--plain" data-ar-fullscreen>全屏体验</button>
+            </div>
+          </div>
+
+          <div class="ar-video-hud" data-ar-video-hud hidden>
+            <span data-ar-video-message>企业影像已就绪 · 静音播放</span>
+            <button type="button" data-ar-video-close>返回山林图层</button>
+          </div>
+
+          <div class="ar-toast" data-ar-toast role="status" aria-live="polite" hidden></div>
+        </div>
+
+        <div class="ar-below-stage">
+          <p class="ar-scan-instruction"><span>目标图</span>礼盒正面高清图案 <i></i> <span>互动方式</span>图像识别 + 2.5D 动态图层</p>
+          <a class="ar-fallback-link" href="?mode=forest" data-ar-fallback>相机或识别不可用？进入清原山林沉浸模式 <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="forest-immersive" data-forest-experience aria-labelledby="forest-title" hidden>
+        <div class="forest-hero" data-parallax-scene>
+          <div class="forest-hero__layer forest-hero__sky" data-parallax-layer="sky" aria-hidden="true"></div>
+          <div class="forest-hero__layer forest-hero__mountains" data-parallax-layer="mountain" aria-hidden="true"></div>
+          <div class="forest-hero__layer forest-hero__trees" data-parallax-layer="trees" aria-hidden="true"></div>
+          <div class="forest-hero__layer forest-hero__plant" data-parallax-layer="plant" aria-hidden="true"></div>
+          <div class="forest-hero__copy">
+            <p class="eyebrow"><span class="red-mark" aria-hidden="true"></span>清原山林意象 · 数字视觉演绎</p>
+            <h1 id="forest-title">沿着山序，<br /><span>走近一株黄精。</span></h1>
+            <p>以礼盒上的山脉、林木与黄精植物为线索，进入一场由包装图形延展而来的沉浸式故事。</p>
+            <span class="forest-hero__caption">设计演绎 · 非清原产地实景</span>
+          </div>
+          <span class="forest-hero__seal" aria-hidden="true">山<br />林<br />有<br />序</span>
+        </div>
+
+        <div class="forest-story section-wrap">
+          <div class="forest-story__index">02 / 山林意象</div>
+          <div>
+            <p class="eyebrow"><span class="red-mark" aria-hidden="true"></span>从包装图形出发</p>
+            <h2>山脉层层展开，<br />一株黄精向上生长。</h2>
+            <p>山形轮廓、森林剪影与黄精植物层叠出现，呼应清原山序礼盒的版画语言。这里展示的是设计演绎；如需呈现清原产地实景，将在企业提供真实拍摄素材后更新。</p>
+          </div>
+        </div>
+
+        <section class="forest-video" aria-labelledby="forest-video-title">
+          <div class="section-wrap video-story__inner">
+            <div class="video-story__intro">
+              <div>
+                <p class="eyebrow"><span class="red-mark" aria-hidden="true"></span>黄精生长故事 · 企业影像资料</p>
+                <h2 id="forest-video-title">一株黄精的山林旅程</h2>
+                <p class="video-story__subtitle">从清原山林，到一盒黄精果。</p>
+              </div>
+              <p class="video-story__lead">观看企业公开影像中的清原采挖与黄精加工画面。视频点击后播放，默认静音。</p>
+            </div>
+            <div class="forest-video-grid">
+              <article class="video-story-card">
+                <div class="video-story-card__media">
+                  <video data-story-video controls muted playsinline preload="metadata" poster="../edited_videos/poster_growth.webp" aria-label="一株黄精的山林旅程，企业公开影像剪辑"><source src="../assets/video/huangjing-growth-story.mp4" type="video/mp4" /></video>
+                  <div class="video-story-card__error" data-video-fallback hidden>视频暂时无法加载，请稍后重试。</div>
+                </div>
+                <div class="video-story-card__copy"><span class="video-story-card__index">01 / 清原采挖影像</span><h3>一株黄精的山林旅程</h3><p>清原满族自治县采挖画面与黄精根茎影像。</p><button type="button" class="video-story-card__play" data-video-play>观看生长影像 <span aria-hidden="true">▶</span></button></div>
+              </article>
+              <article class="video-story-card">
+                <div class="video-story-card__media">
+                  <video data-story-video controls muted playsinline preload="metadata" poster="../edited_videos/poster_process.webp" aria-label="从鲜黄精到黄精果，企业公开影像剪辑"><source src="../assets/video/huangjing-process-story.mp4" type="video/mp4" /></video>
+                  <div class="video-story-card__error" data-video-fallback hidden>视频暂时无法加载，请稍后重试。</div>
+                </div>
+                <div class="video-story-card__copy"><span class="video-story-card__index">02 / 企业加工影像</span><h3>从鲜黄精到黄精果</h3><p>黄精原料、企业加工环节与相关产品画面。</p><button type="button" class="video-story-card__play" data-video-play>观看加工影像 <span aria-hidden="true">▶</span></button></div>
+              </article>
+            </div>
+            <div class="video-story__notes"><p>影像素材整理自“裕恒源黄精”官方公开视频，用于本包装设计的数字互动展示。</p><p>涉及具体生产批次、工艺参数及产品信息，以企业最终确认内容为准；视频不代表本批次产品溯源。</p></div>
+          </div>
+        </section>
+
+        <section class="forest-packaging section-wrap" aria-labelledby="forest-packaging-title">
+          <div class="forest-packaging__copy">
+            <p class="eyebrow"><span class="red-mark" aria-hidden="true"></span>包装故事</p>
+            <h2 id="forest-packaging-title">把清原山序，<br />带回日常。</h2>
+            <p>山脉是序章，黄精是主角，六袋独立包装把山林意象延伸成一份可分享的礼。</p>
+            <a class="ar-primary-button ar-primary-button--link" href="../#packaging">了解包装平面系统 <span aria-hidden="true">↗</span></a>
+          </div>
+          <figure class="forest-packaging__figure">
+            <img src="../assets/source-boards/board-01-packaging-hero.png" alt="清原山序黄精果礼盒包装主视觉设计版面" width="1491" height="1055" loading="lazy" />
+            <figcaption>礼盒主视觉 · 山林版画与黄精根茎</figcaption>
+          </figure>
+        </section>
+        <div class="forest-return"><a href="./">返回 AR 识别 <span aria-hidden="true">↗</span></a><a href="../">回到数字故事首页 <span aria-hidden="true">↗</span></a></div>
+      </section>
+    </main>
+
+    <footer class="site-footer ar-footer">
+      <div class="footer-inner"><span>裕恒源 · 清原山序</span><span>数字互动内容用于品牌故事与包装体验展示；涉及产地、加工与企业事实的信息以企业授权素材为准。</span></div>
+    </footer>
+  </body>
+</html>

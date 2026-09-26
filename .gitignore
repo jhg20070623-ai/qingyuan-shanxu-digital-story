@@ -2,3 +2,6 @@
 Thumbs.db
 node_modules/
 .vercel/
+/source_videos/
+/tmp/
+/output/

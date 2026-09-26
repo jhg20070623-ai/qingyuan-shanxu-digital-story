@@ -8,6 +8,7 @@
     <title>清原山序｜一盒黄精的山林故事</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/config.js"></script>
+    <script src="js/video-story.js" defer></script>
     <script src="js/main.js" defer></script>
   </head>
   <body>
@@ -22,6 +23,8 @@
           <a href="#story">故事起点</a>
           <a href="#packaging">包装系统</a>
           <a href="#experience">成品应用</a>
+          <a href="#video">黄精影像</a>
+          <a href="ar/">AR走进清原</a>
         </nav>
         <button class="menu-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-nav">
           <span></span><span></span>
@@ -31,6 +34,8 @@
         <a href="#story">故事起点</a>
         <a href="#packaging">包装系统</a>
         <a href="#experience">成品应用</a>
+        <a href="#video">黄精影像</a>
+        <a href="ar/">AR清原</a>
       </nav>
     </header>
 
@@ -52,6 +57,34 @@
           <figcaption><span>01 / 主包装视觉</span><span>山林版画 · 黄精根茎</span></figcaption>
         </figure>
         <span class="hero-index" aria-hidden="true">QY<br />01</span>
+      </section>
+
+      <section class="smart-experience section-wrap" id="smart-experience" aria-labelledby="smart-experience-title">
+        <div class="smart-heading">
+          <p class="eyebrow"><span class="red-mark" aria-hidden="true"></span>扫码互动 · 智能包装体验</p>
+          <h2 id="smart-experience-title">让包装继续讲故事</h2>
+          <p>真实企业影像 · 包装数字故事 · AR山林体验</p>
+        </div>
+        <div class="smart-links">
+          <a class="smart-card smart-card--video" href="#growth-video">
+            <span class="smart-card__index">01 / 生长影像</span>
+            <strong>看黄精生长</strong>
+            <span class="smart-card__note">一株黄精的山林旅程。</span>
+            <span class="smart-card__arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="smart-card smart-card--process" href="#packaging">
+            <span class="smart-card__index">02 / 包装故事</span>
+            <strong>了解包装故事</strong>
+            <span class="smart-card__note">从山林意象，到礼盒设计。</span>
+            <span class="smart-card__arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="smart-card smart-card--ar" href="ar/">
+            <span class="smart-card__index">03 / 图像识别</span>
+            <strong>AR走进清原</strong>
+            <span class="smart-card__note">让礼盒正面，浮现山林层次。</span>
+            <span class="smart-card__arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
       </section>
 
       <section class="story section-wrap" id="story" aria-labelledby="story-title">
@@ -124,6 +157,70 @@
             <span class="sheet-label"><span><b>成品应用展示</b><small>产品内容 · 家庭品饮 · 节庆赠礼</small></span><span class="sheet-action">查看高清原图 ↗</span></span>
           </button>
           <p class="board-note">版面中的二维码为设计展示图形；包装实际印刷请使用已核验的正式二维码。</p>
+        </div>
+      </section>
+
+      <section class="video-story" id="video" aria-labelledby="video-story-title">
+        <div class="section-wrap video-story__inner">
+          <div class="video-story__intro">
+            <div>
+              <p class="eyebrow"><span class="red-mark" aria-hidden="true"></span>企业影像资料 · 05</p>
+              <h2 id="video-story-title">05｜一株黄精的山林旅程</h2>
+              <p class="video-story__subtitle">从山林生长，到一盒黄精果。</p>
+            </div>
+            <p class="video-story__lead">五段影像章节，串起黄精生长、林下环境、采挖原料、加工与产品故事。点击章节后播放对应片段，默认静音。</p>
+          </div>
+          <nav class="video-story__chapter-nav" aria-label="黄精视频故事章节">
+            <button class="video-story__chapter" type="button" data-story-chapter="growth" data-story-time="0" aria-label="播放黄精生长章节">
+              <span>01</span><strong>黄精生长</strong><small>山林旅程</small>
+            </button>
+            <button class="video-story__chapter" type="button" data-story-chapter="growth" data-story-time="11" aria-label="播放林下环境章节">
+              <span>02</span><strong>林下环境</strong><small>山林作业影像</small>
+            </button>
+            <button class="video-story__chapter" type="button" data-story-chapter="growth" data-story-time="19" aria-label="播放采挖与原料章节">
+              <span>03</span><strong>采挖与原料</strong><small>根茎整理影像</small>
+            </button>
+            <button class="video-story__chapter" type="button" data-story-chapter="process" data-story-time="14" aria-label="播放加工过程章节">
+              <span>04</span><strong>加工过程</strong><small>企业加工影像</small>
+            </button>
+            <button class="video-story__chapter" type="button" data-story-chapter="process" data-story-time="49" aria-label="播放成品与礼盒章节">
+              <span>05</span><strong>成品与礼盒</strong><small>相关产品影像</small>
+            </button>
+          </nav>
+          <div class="video-story-grid">
+            <article class="video-story-card" id="growth-video">
+              <div class="video-story-card__media">
+                <video data-story-video="growth" controls muted playsinline preload="metadata" poster="edited_videos/poster_growth.webp" aria-label="一株黄精的山林旅程，裕恒源黄精官方公开视频剪辑">
+                  <source src="assets/video/huangjing-growth-story.mp4" type="video/mp4" />
+                </video>
+                <div class="video-story-card__error" data-video-fallback hidden>视频暂时无法加载，请稍后重试。</div>
+              </div>
+              <div class="video-story-card__copy">
+                <span class="video-story-card__index">01 / 黄精生长与采挖影像</span>
+                <h3>一株黄精的山林旅程</h3>
+                <p>包含画面标注“清原满族自治县”的企业公开视频，并呈现黄精根茎与山林作业场景。</p>
+                <button type="button" class="video-story-card__play" data-video-play>观看生长影像 <span aria-hidden="true">▶</span></button>
+              </div>
+            </article>
+            <article class="video-story-card" id="process-video">
+              <div class="video-story-card__media">
+                <video data-story-video="process" controls muted playsinline preload="metadata" poster="edited_videos/poster_process.webp" aria-label="从鲜黄精到黄精果，裕恒源黄精官方公开视频剪辑">
+                  <source src="assets/video/huangjing-process-story.mp4" type="video/mp4" />
+                </video>
+                <div class="video-story-card__error" data-video-fallback hidden>视频暂时无法加载，请稍后重试。</div>
+              </div>
+              <div class="video-story-card__copy">
+                <span class="video-story-card__index">02 / 企业加工影像</span>
+                <h3>从鲜黄精到黄精果</h3>
+                <p>通过企业公开影像，了解黄精原料、加工环节与相关产品画面。</p>
+                <button type="button" class="video-story-card__play" data-video-play>观看加工影像 <span aria-hidden="true">▶</span></button>
+              </div>
+            </article>
+          </div>
+          <div class="video-story__notes">
+            <p>影像素材整理自“裕恒源黄精”官方公开视频，用于本包装设计的数字互动展示。</p>
+            <p>涉及具体生产批次、工艺参数及产品信息，以企业最终确认内容为准；视频不代表本批次产品溯源。</p>
+          </div>
         </div>
       </section>
 

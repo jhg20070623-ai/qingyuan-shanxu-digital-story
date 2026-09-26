@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 168">
+  <rect x="2" y="2" width="896" height="164" rx="5" fill="#062f29" fill-opacity=".88" stroke="#dfc68f" stroke-opacity=".85" stroke-width="3"/>
+  <circle cx="38" cy="41" r="8" fill="#bb392d"/>
+  <text x="68" y="57" fill="#f6f0dd" font-family="Noto Serif CJK SC, Songti SC, SimSun, serif" font-size="36" letter-spacing="4">辽宁 · 抚顺 · 清原</text>
+  <text x="68" y="122" fill="#e4bd6e" font-family="Noto Serif CJK SC, Songti SC, SimSun, serif" font-size="31" letter-spacing="8">山林为脉 · 黄精为珍</text>
+  <path d="M725 128c41-50 77-50 116 0" fill="none" stroke="#e4bd6e" stroke-width="2" opacity=".72"/>
+</svg>
