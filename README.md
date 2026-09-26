@@ -27,6 +27,12 @@ python -m http.server 4173
 
 390 × 844 移动视口截图位于 `screenshots/`：首屏、清原地域、六袋系列、开盒展示和品牌入口。
 
+## 二维码
+
+- `qingyuan-shanxu-qr-1200.png`：1200 × 1200，编码公开网页地址。
+- `qingyuan-shanxu-qr-labelled.png`：带标题、说明与网页地址的版面预览。
+- 编码目标：`https://jhg20070623-ai.github.io/qingyuan-shanxu-digital-story/`
+
 ## 配置
 
 编辑 `js/config.js` 中的 `brandUrl` 和 `shopUrl` 接入已核实的品牌官网、官方店铺地址。任一地址留空时，页面显示“品牌入口待接入”或“官方购买入口待接入”。
