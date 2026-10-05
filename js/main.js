@@ -15,6 +15,42 @@
     link.addEventListener("click", () => setMenuOpen(false));
   });
 
+  const navLinks = [...document.querySelectorAll('.desktop-nav a[href^="#"], .mobile-nav a[href^="#"]')];
+  const navSections = [...new Set([...navLinks
+    .map((link) => document.querySelector(link.getAttribute("href")))
+    .filter(Boolean), document.querySelector("#story")].filter(Boolean))]
+    .sort((a, b) => a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1);
+  const setActiveNav = (target) => navLinks.forEach((link) => {
+    if (link.getAttribute("href") === target) link.setAttribute("aria-current", "location");
+    else link.removeAttribute("aria-current");
+  });
+  const updateActiveNav = () => {
+    if (!navSections.length) return;
+    const headerHeight = document.querySelector(".site-header")?.getBoundingClientRect().height || 0;
+    const marker = headerHeight + Math.min(120, innerHeight * .2);
+    const section = [...navSections].reverse().find((item) => item.getBoundingClientRect().top <= marker) || navSections[0];
+    setActiveNav(section.id === "story" ? "#smart-experience" : `#${section.id}`);
+  };
+  let navFrame = 0;
+  window.addEventListener("scroll", () => {
+    if (navFrame) return;
+    navFrame = requestAnimationFrame(() => { navFrame = 0; updateActiveNav(); });
+  }, { passive: true });
+  navLinks.forEach((link) => link.addEventListener("click", () => setActiveNav(link.getAttribute("href"))));
+  updateActiveNav();
+
+  const shopLink = document.querySelector("[data-shop-url-link]");
+  const shopUrl = window.QINGYUAN_CONFIG?.shopUrl;
+  if (shopLink && typeof shopUrl === "string") {
+    try {
+      const parsed = new URL(shopUrl);
+      if (parsed.protocol === "https:" || parsed.protocol === "http:") {
+        shopLink.href = parsed.href;
+        shopLink.hidden = false;
+      }
+    } catch { /* A QR image alone does not provide a web URL. */ }
+  }
+
   const viewer = document.querySelector(".board-viewer");
   const viewerImage = document.querySelector(".viewer-image");
   const viewerTitle = document.querySelector("#viewer-title");

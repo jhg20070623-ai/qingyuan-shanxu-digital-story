@@ -30,6 +30,13 @@
 
 当前完成的是 Chromium 桌面端的移动视口和虚拟摄像头自动化检查，不是 iOS 或 Android 真机验收。Safari、微信内置浏览器、不同型号手机的摄像头权限行为、实体礼盒在不同光线/角度/距离下的识别稳定性仍需真机检查。需要 HTTPS 与用户摄像头授权；用户拒绝或识别超时会显示网页 fallback。
 
+## UI V2 回归复核（2026-10-01）
+
+- Chromium 移动视口下 `/ar/` 正常载入；`target/giftbox-front.png`、`target/giftbox-front.mind` 及 fallback 包装预览图均返回 HTTP 200。
+- 自动化拒绝相机权限后成功进入沉浸模式；当前 UI 复核截图见 `screenshots/ui-v2/ar-scanner-390.png`、`ar-fallback-390.png` 与 `ar-fallback-full-390.png`。
+- 本次 UI 调整仅更换拆分样式表的加载链接并优化 fallback 展示图格式，没有改动 target 文件或 MindAR 识别代码。
+- 本次未重跑虚拟摄像头识别模拟，也未进行真机测试；既有识别模拟结果与其限制仍以本报告上文为准。
+
 ## 复测步骤
 
 1. 用 iPhone Safari、Android Chrome 和微信内置浏览器打开公开站点。

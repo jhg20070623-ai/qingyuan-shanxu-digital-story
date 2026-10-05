@@ -17,7 +17,7 @@
 
 它们与 `edited_videos/` 内的对应成片内容一致，使用独立文件名便于页面静态托管。AR 独立短循环继续从 `edited_videos/` 载入。
 
-首页和 `/ar/` fallback 播放前两条故事短片。礼盒识别后的两个 AR 按钮分别调用两个静音循环。播放器使用 `controls`、`muted`、`playsinline` 与 `preload="metadata"`，页面不会自动播放声音。
+首页和 `/ar/` fallback 播放前两条故事短片。礼盒识别后的两个 AR 按钮分别调用两个静音循环。首页及 AR 表面循环使用 `preload="none"`，避免扫码打开后预先下载视频；沉浸模式视频使用 `preload="metadata"`。播放器带 `controls`、`muted`、`playsinline`，不会自动播放声音。
 
 ## 原始素材与重剪
 
